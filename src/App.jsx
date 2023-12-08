@@ -14,17 +14,34 @@ function App() {
     console.log("Anon Aadhaar status: ", anonAadhaar.status);
   }, [anonAadhaar]);
 
+  const connectToMetaMask = () =>{
+    console.log("connect to metamask")
+  }
+
   return (
     <div>
-      <div>
-        <LogInWithAnonAadhaar />
-        <p>{anonAadhaar?.status}</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-6">SwiftPeer</h1>
+        <div className="space-x-4">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+            onClick={connectToMetaMask}
+          >
+            Connect to MetaMask
+          </button>
+          {/* Add another button here */}
+          {/* Example: */}
+          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-green-400">
+           <LogInWithAnonAadhaar />
+            </button>
+        </div>
       </div>
+    </div>
       <div>
-        {/* Render the proof if generated and valid */}
         {anonAadhaar?.status === "logged-in" && (
           <>
-            <p>✅ Proof is valid</p>
+            {alert("proof is valid")}
             <AnonAadhaarProof code={JSON.stringify(anonAadhaar.pcd, null, 2)} />
           </>
         )}
