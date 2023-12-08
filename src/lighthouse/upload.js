@@ -120,44 +120,42 @@ function UploadL() {
   };
 
   return (
-    <div className="App">
-        <div className="flex min-h-screen items-center justify-center bg-gray-900 text-white">
-      <div className="max-w-4xl mx-auto p-8">
-        <h1 className="text-4xl font-bold mb-8 text-center">Hello Researcher</h1>
-        
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between">
-          {/* File Upload */}
-          <div className="mb-6 md:mb-0 md:mr-4 flex items-center">
-            
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={uploadEncryptedFile} disabled={!file}>
-        Upload Encrypted File
-      </button>
+    <div className="App bg-gray-800 min-h-screen flex items-center justify-center">
+    <div className="max-w-4xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
+      <h1 className="text-4xl font-bold mb-8 text-center">Hello Researcher</h1>
+      
+      <div className="flex flex-col items-center">
+        {/* File Upload */}
+        <div className="mb-6 flex flex-col items-center">
+          <input type="file" onChange={handleFileChange} className="mb-2" />
+          <div className="text-xs text-gray-500">
+            {/* {file ? file.name : "No file chosen"} */}
           </div>
+          <button onClick={uploadEncryptedFile} disabled={!file} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-blue-400">
+            Upload Encrypted File
+          </button>
+        </div>
 
-          {/* SVG on the right */}
-          <div className="flex-shrink-0">
-            <svg
-              className="h-32 w-32 text-blue-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {/* Your SVG code here */}
-              {/* Example: */}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </div>
+        {/* SVG in the center */}
+        <div className="flex items-center justify-center my-4">
+          <svg
+            className="h-32 w-32 text-blue-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            {/* Your SVG code here */}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
         </div>
       </div>
     </div>
-
-    </div>
+  </div>
   );
 }
 
