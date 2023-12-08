@@ -18,21 +18,20 @@ console.log("app_id", app_id);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <AnonAadhaarProvider _appId={app_id} _testing={true}>
     <Router>
       <div>
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<App />} />
+        <Route path="/upload" element={<UploadL />} />
+
         {/* This is similar to Switch in v5 - the first matching Route will be rendered */}
       </Routes>
       </div>
-    
-    <AnonAadhaarProvider _appId={app_id} _testing={true}>
-      {/* <App /> */}
-      {/* <UploadL/> */}
-      {/* <Retrieve/> */}
-    </AnonAadhaarProvider>
+      
     </Router>
+    </AnonAadhaarProvider>
   </React.StrictMode>
 );
 
