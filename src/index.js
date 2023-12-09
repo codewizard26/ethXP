@@ -8,6 +8,7 @@ import UploadL from "./lighthouse/upload.js";
 import Retrieve from "./lighthouse/retrieve.js";
 import Home from "./Home.js";
 import Reviewer from "./review/reviewer.js";
+import { MetaMaskProvider } from "@metamask/sdk-react";
 
 
 // const app_id = process.env.ANON_ID || "";
@@ -19,6 +20,16 @@ console.log("app_id", app_id);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <MetaMaskProvider
+      debug={false}
+      sdkOptions={{
+        checkInstallationImmediately: false,
+        dappMetadata: {
+          name: "EthXplorers",
+          url: window.location.host,
+        },
+      }}
+    >
     <AnonAadhaarProvider _appId={app_id} _testing={true}>
     <Router>
       <div>
@@ -27,6 +38,8 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/upload" element={<UploadL />} />
         <Route path="/reviewer" element= {<Reviewer/>} />
+        <Route path="/retrieve" element= {<Retrieve/>} />
+
 
         {/* This is similar to Switch in v5 - the first matching Route will be rendered */}
       </Routes>
@@ -34,6 +47,7 @@ root.render(
       
     </Router>
     </AnonAadhaarProvider>
+    </MetaMaskProvider>
   </React.StrictMode>
 );
 

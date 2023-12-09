@@ -4,7 +4,8 @@ import lighthouse from "@lighthouse-web3/sdk";
 function UploadL() {
   const [file, setFile] = useState(null);
   const [cId, setId] = useState("");
-  const apiKey = "535dec75.c7a1a9d86768459ead1ccac234bcb89b";
+  const [sign,setSign] = useState("")
+  const apiKey = "adeea4df.e943c207a9b84de78dc656a58fbda881";
 
   useEffect(() => {
     if (cId !== "") {
@@ -61,7 +62,12 @@ function UploadL() {
       const { signature, signerAddress } = encryptionAuth;
 
       console.log(signature, "sign below")
+      setSign(signature)
 
+    console.log("1",file)
+    console.log("2",apiKey)
+    console.log("3",signerAddress)
+    console.log("4",signature)
 
       const output = await lighthouse.uploadEncrypted(
         file,
@@ -93,17 +99,17 @@ function UploadL() {
       // Ensure 'cId' has the correct CID value
 
       const cid = cId // Use the obtained CID
-      const publicKey = '0x0313922d9E9243B12f6FF1172b965fA8FF8bd31F';
-      const signedMessage = "SIGNATURE";
+      const publicKey = '0x0Ba95Ca56C9740311621619834463a71b5591C9E';
+      const signedMessage = await signAuthMessage();
       const publicKeyUserB = ["0x279317E79E6533837b52B117875C717fAb9453AA"];
 
       console.log(cid, "CID value");
 
       const shareResponse = await lighthouse.shareFile(
-        publicKey,
+        signedMessage?.signerAddress,
         publicKeyUserB,
         cid,
-        signedMessage
+        signedMessage?.signature
       );
 
       console.log("Share Response:", shareResponse);
@@ -129,7 +135,7 @@ function UploadL() {
         <div className="mb-6 flex flex-col items-center">
           <input type="file" onChange={handleFileChange} className="mb-2" />
           <div className="text-xs text-gray-500">
-            {/* {file ? file.name : "No file chosen"} */}
+            {file ? file.name : "No file chosen"}
           </div>
           <button onClick={uploadEncryptedFile} disabled={!file} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none focus:ring focus:ring-blue-400">
             Upload Encrypted File

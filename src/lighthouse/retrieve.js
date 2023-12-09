@@ -1,47 +1,38 @@
-import React, { useEffect } from 'react'
-import lighthouse from '@lighthouse-web3/sdk'
-
-const getUploads = async () => {
-    /*
-      @param {string} apiKey - Your API key.
-      @param {number} [pageNo=1] - The page number for pagination, defaults to 1.
-    */
-    const response = await lighthouse.getUploads("YOUR_API_KEY");
-    console.log(response);
-  
-    // Process the response or store it in state for further use
-    return response.data.fileList;
-  };
+import React, { useEffect } from 'react';
+import lighthouse from '@lighthouse-web3/sdk';
 
 function Retrieve() {
-    const getUploads = async() =>{
-        /*
-          @param {string} apiKey - Your API key.
-          @param {number} [pageNo=1] - The page number for pagination, defaults to 1.
-        */
-        const response = await lighthouse.getUploads("535dec75.c7a1a9d86768459ead1ccac234bcb89b")
-        console.log(response)
+  const apiKey = "adeea4df.e943c207a9b84de78dc656a58fbda881"; // Replace this with your actual API key
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const keyResponse = await lighthouse.generateKey(apiKey);
+        console.log('Generated key:', keyResponse.data);
+
+        const pubResponse = await lighthouse.publishRecord(
+          'QmUqoayBcenKaUUJb4ML2Xcq8NJQoRKsvC5yqhFC8g2ZFZ',
+          keyResponse.data.ipnsName,
+          apiKey
+        );
+        console.log('Published record:', pubResponse.data);
+
+        const allKeys = await lighthouse.getAllKeys(apiKey);
+        console.log('All keys:', allKeys.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
 
-    useEffect(() => {
-        // Fetch uploaded files when component mounts
-        const fetchData = async () => {
-          try {
-            const uploads = await getUploads();
-            console.log("Uploaded files:", uploads);
-            // Store 'uploads' in state or perform other actions with the data
-          } catch (error) {
-            console.error("Error fetching uploads:", error);
-          }
-        };
-    
-        fetchData(); // Call the function to fetch uploads
-      }, []);
+    fetchData();
+  }, [apiKey]); // Run the effect whenever apiKey changes
+
   return (
     <div>
-        reviewer portal
+        retrieve
+      {/* Your React component content */}
     </div>
-  )
+  );
 }
 
-export default Retrieve
+export default Retrieve;
