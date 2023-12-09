@@ -18,7 +18,7 @@ const Home = () => {
            <Link to="/upload">Upload Research</Link> 
           </button>
           <button className="bg-blue-500 ml-4 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Review Research
+            <Link to= "/reviewer">Review Researches</Link>
           </button>
         </div>
         <div className="flex-1 flex  items-center">
