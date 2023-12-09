@@ -6,12 +6,12 @@ const buttonStyles = {
   backgroundColor: "#3498db",
   color: "#ffffff",
   border: "none",
-  padding: "50px 20px",
+  padding: "10px 20px",
   fontSize: "16px",
   cursor: "pointer",
 };
 
-export default function PushMessage({ _signer, _clicked }) {
+export default function PushMessage({ _signer, _clicked, _signerAddress }) {
   const [user, setUser] = useState(null);
   const signer = _signer;
 
@@ -19,21 +19,34 @@ export default function PushMessage({ _signer, _clicked }) {
     const user = await PushAPI.initialize(signer, {
       env: CONSTANTS.ENV.STAGING,
     });
+    console.log("user", user);
+    setUser(user);
   };
 
   const pushChannelAddress = "0x4fE333470b78C5896178780aa9483bc8F6085418";
 
   const subscribeToChannel = async () => {
-    await user.notification.subscribe(`eip155:11155111:${pushChannelAddress}`);
+    const response = await user.notification.subscribe(
+      `eip155:111555111:${pushChannelAddress}`
+    );
+    console.log("response", response);
   };
 
   const sendNotification = async () => {
-    const targetNotification = await user.channel.send([signer.address], {
-      notification: {
-        title: "test",
-        body: "This is a test notification.",
-      },
-    });
+    try {
+      const sendNotifRes = await user.channel.send(
+        [`eip155:111555111:0x47C30E4b5DF294c3B05625a043D7768e4E41dECc`],
+        {
+          notification: {
+            title: "Test Noti",
+            body: "This is a test notification",
+          },
+        }
+      );
+      console.log("sendNotifRes", sendNotifRes);
+    } catch (err) {
+      console.log("error is", err);
+    }
   };
 
   useEffect(() => {
@@ -47,6 +60,9 @@ export default function PushMessage({ _signer, _clicked }) {
           Click here to subscribe!
         </button>
       </div>
+      <br></br>
+      <p>---------------------------------------</p>
+      <br></br>
       <div className="sendMessage">
         <button onClick={sendNotification} style={buttonStyles}>
           Click here to send notification

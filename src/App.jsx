@@ -28,6 +28,7 @@ function App() {
       const signerAddress = await signer.getAddress();
       setSigner(signer);
       setSignerAddress(signerAddress);
+      console.log(`signerAddress`, signerAddress);
     } catch (err) {
       console.warn(`failed to connect..`, err);
     }
@@ -68,7 +69,13 @@ function App() {
           </>
         )}
       </div>
-      {signer !== undefined && <PushMessage signer={signer} clicked={true} />}
+      {signer !== undefined && (
+        <PushMessage
+          _signer={signer}
+          _clicked={true}
+          _signerAddress={signerAddress}
+        />
+      )}
     </div>
   );
 }
