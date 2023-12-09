@@ -8,10 +8,11 @@ import {
 } from "anon-aadhaar-react";
 import { useSDK } from "@metamask/sdk-react";
 import { ethers } from "ethers";
+import PushMessage from "./pushImplementation";
 
 function App() {
   const [account, setAccount] = useState(null);
-  const [signer, setSigner] = useState(null);
+  const [signer, setSigner] = useState(undefined);
   const [signerAddress, setSignerAddress] = useState(null);
 
   const { sdk, connected, connecting, provider, chainId } = useSDK();
@@ -67,7 +68,7 @@ function App() {
           </>
         )}
       </div>
-      {/* <PushMessage signer={signer} clicked={true} /> */}
+      {signer !== undefined && <PushMessage signer={signer} clicked={true} />}
     </div>
   );
 }
